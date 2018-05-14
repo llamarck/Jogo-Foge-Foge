@@ -11,5 +11,8 @@
 void allocMap();
 void readMap();
 void freeMap();
+void printfMap();
+int end();
+void move(char direction);
 
 #endif /* FOGE_FOGE_H_ */

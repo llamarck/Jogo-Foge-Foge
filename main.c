@@ -13,6 +13,48 @@ char** map;
 int lines;
 int columns;
 
+int end(){
+	return 0;
+}
+
+void move(char direction){
+	int x, y, i, j;
+
+	for(i = 0; i < lines; i++){
+		for(j = 0; j < columns; j++){
+			if(map[i][j] == '@'){
+				x = i;
+				y = j;
+				break;
+			}
+		}
+	}
+
+	switch(direction) {
+		case 'a':
+			map[x][y-1] = '@';
+			break;
+		case 'w':
+			map[x-1][y] = '@';
+			break;
+		case 's':
+			map[x+1][y] = '@';
+			break;
+		case 'd':
+			map[x][y+1] = '@';
+			break;
+	}
+
+	map[x][y] = '.';
+}
+
+void printMap(){
+	int i;
+	for(i = 0; i < lines; i++){
+		printf("%s\n", map[i]);
+	}
+}
+
 void freeMap(){
 	int i;
 	for(i = 0; i < lines; i++){
@@ -53,10 +95,13 @@ int main() {
 
 	readMap();
 
-	int i;
-	for(i = 0; i < lines; i++){
-		printf("%s\n", map[i]);
-	}
+	do {
+		printMap();
+		char command;
+		scanf(" %c", &command);
+		move(command);
+
+	}while(!end());
 
 	freeMap();
 
