@@ -9,9 +9,11 @@
 #include <stdlib.h>
 #include "foge-foge.h"
 
-char** map;
+/*char** map;
 int lines;
-int columns;
+int columns;*/
+
+MAPA m;
 
 int end(){
 	return 0;
@@ -20,9 +22,9 @@ int end(){
 void move(char direction){
 	int x, y, i, j;
 
-	for(i = 0; i < lines; i++){
-		for(j = 0; j < columns; j++){
-			if(map[i][j] == '@'){
+	for(i = 0; i < m.lines; i++){
+		for(j = 0; j < m.columns; j++){
+			if(m.matriz[i][j] == '@'){
 				x = i;
 				y = j;
 				break;
@@ -32,43 +34,43 @@ void move(char direction){
 
 	switch(direction) {
 		case 'a':
-			map[x][y-1] = '@';
+			m.matriz[x][y-1] = '@';
 			break;
 		case 'w':
-			map[x-1][y] = '@';
+			m.matriz[x-1][y] = '@';
 			break;
 		case 's':
-			map[x+1][y] = '@';
+			m.matriz[x+1][y] = '@';
 			break;
 		case 'd':
-			map[x][y+1] = '@';
+			m.matriz[x][y+1] = '@';
 			break;
 	}
 
-	map[x][y] = '.';
+	m.matriz[x][y] = '.';
 }
 
 void printMap(){
 	int i;
-	for(i = 0; i < lines; i++){
-		printf("%s\n", map[i]);
+	for(i = 0; i < m.lines; i++){
+		printf("%s\n", m.matriz[i]);
 	}
 }
 
 void freeMap(){
 	int i;
-	for(i = 0; i < lines; i++){
-		free(map[i]); //libera cada um dos arrays alocados
+	for(i = 0; i < m.lines; i++){
+		free(m.matriz[i]); //libera cada um dos arrays alocados
 	}
-	free(map); //libera a matriz como um todo
+	free(m.matriz); //libera a matriz como um todo
 }
 
 void allocMap(){
-	map = malloc(sizeof(char*) * lines);
+	m.matriz = malloc(sizeof(char*) * m.lines);
 
 	int i;
-	for(i = 0; i < lines; i++){
-		map[i] = malloc(sizeof(char) * columns + 1);
+	for(i = 0; i < m.lines; i++){
+		m.matriz[i] = malloc(sizeof(char) * m.columns + 1);
 	}
 }
 
@@ -80,12 +82,14 @@ void readMap(){
 		exit(1);
 	}
 
-	fscanf(f, "%d %d", &lines, &columns);
+	fscanf(f, "%d %d", &(m.lines), &(m.columns));
+	fflush(stdout);
 	allocMap();
 
 	int i;
-	for(i = 0; i < lines; i++){
-		fscanf(f, "%s", map[i]); //lendo do map.txt
+	for(i = 0; i < m.lines; i++){
+		fscanf(f, "%s", m.matriz[i]); //lendo do map.txt
+		fflush(stdout);
 	}
 
 	fclose(f);
@@ -99,6 +103,7 @@ int main() {
 		printMap();
 		char command;
 		scanf(" %c", &command);
+		fflush(stdout);
 		move(command);
 
 	}while(!end());

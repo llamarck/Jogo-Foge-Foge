@@ -15,4 +15,12 @@ void printfMap();
 int end();
 void move(char direction);
 
+typedef struct map MAPA;
+
+struct map{
+	char** matriz;
+	int lines;
+	int columns;
+};
+
 #endif /* FOGE_FOGE_H_ */
