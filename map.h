@@ -19,9 +19,16 @@ struct map{
 
 typedef struct map MAP;
 
+struct position{
+	int x;
+	int y;
+};
+
+typedef struct position POSITION;
+
 void allocMap(MAP * m);
 void readMap(MAP * m);
 void freeMap(MAP * m);
-void printfMap(MAP * m);
+void printMap(MAP * m);
 
 #endif /* MAP_H_ */
