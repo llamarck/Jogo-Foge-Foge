@@ -47,26 +47,48 @@ void move(char direction){
 		}
 	}*/
 
+	if((direction != 'a') && (direction != 'w') && (direction != 's') && (direction != 'd')){
+		return;
+	}
+
+	int nextX = hero.x;
+	int nextY = hero.y;
+
 	m.matriz[hero.x][hero.y] = '.';
 
 	switch(direction) {
 		case 'a':
 			m.matriz[hero.x][hero.y-1] = '@';
-			hero.y--;
+			nextY--;
 			break;
 		case 'w':
 			m.matriz[hero.x-1][hero.y] = '@';
-			hero.x--;
+			nextX--;
 			break;
 		case 's':
 			m.matriz[hero.x+1][hero.y] = '@';
-			hero.x++;
+			nextX++;
 			break;
 		case 'd':
 			m.matriz[hero.x][hero.y+1] = '@';
-			hero.y++;
+			nextY++;
 			break;
 	}
+
+	if(nextX >= m.lines){
+		return;
+	}
+	if(nextY >= m.columns){
+		return;
+	}
+	if(m.matriz[nextX][nextY] != '.'){
+		return;
+	}
+
+	m.matriz[nextX][nextY] = '@';
+	m.matriz[hero.x][hero.y] = '.';
+	hero.x = nextX;
+	hero.y = nextY;
 }
 
 int main() {
