@@ -34,6 +34,29 @@ int end(){
 	return 0;
 }
 
+int validDirection(MAP * m, int x, int y){
+	if(x >= m->lines)
+		return 0;
+	if(y >= m->columns)
+		return 0;
+
+	return 1;
+}
+
+int realDirection(char direction){
+	return
+			direction == 'a' ||
+			direction == 'w' ||
+			direction == 's' ||
+			direction == 'd';
+}
+
+void walkingInMap(MAP * m, int xOrigin, int yOrigin, int xDestiny, int yDestiny){
+	char character = m->matriz[xOrigin][yOrigin];
+	m->matriz[xDestiny][yDestiny] = character;
+	m->matriz[xOrigin][yOrigin] = '.';
+}
+
 void move(char direction){
 	/*int x, y, i, j;
 
@@ -47,9 +70,12 @@ void move(char direction){
 		}
 	}*/
 
-	if((direction != 'a') && (direction != 'w') && (direction != 's') && (direction != 'd')){
+	/*if((direction != 'a') && (direction != 'w') && (direction != 's') && (direction != 'd')){
 		return;
-	}
+	}*/
+
+	if(!realDirection(direction))
+		return;
 
 	int nextX = hero.x;
 	int nextY = hero.y;
@@ -75,16 +101,17 @@ void move(char direction){
 			break;
 	}
 
-	if(nextX >= m.lines){
+	if(!validDirection(&m, nextX, nextY)){
 		return;
 	}
-	if(nextY >= m.columns){
+	if(!isEmpty(&m, nextX, nextY)){
 		return;
 	}
 	if(m.matriz[nextX][nextY] != '.'){
 		return;
 	}
 
+	walkingInMap(&m, hero.x, hero.y, nextX, nextY);
 	m.matriz[nextX][nextY] = '@';
 	m.matriz[hero.x][hero.y] = '.';
 	hero.x = nextX;

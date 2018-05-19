@@ -53,3 +53,7 @@ void readMap(MAP * m){
 
 	fclose(f);
 }
+
+int isEmpty(MAP * m, int x, int y){
+	return m->matriz[x][y] == '.';
+}
