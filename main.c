@@ -45,10 +45,10 @@ int validDirection(MAP * m, int x, int y){
 
 int realDirection(char direction){
 	return
-			direction == 'a' ||
-			direction == 'w' ||
-			direction == 's' ||
-			direction == 'd';
+			direction == LEFT ||
+			direction == UP ||
+			direction == DOWN ||
+			direction == RIGHT;
 }
 
 void walkingInMap(MAP * m, int xOrigin, int yOrigin, int xDestiny, int yDestiny){
@@ -80,23 +80,23 @@ void move(char direction){
 	int nextX = hero.x;
 	int nextY = hero.y;
 
-	m.matriz[hero.x][hero.y] = '.';
+	//m.matriz[hero.x][hero.y] = EMPTY;
 
 	switch(direction) {
-		case 'a':
-			m.matriz[hero.x][hero.y-1] = '@';
+		case LEFT:
+			//m.matriz[hero.x][hero.y-1] = HERO;
 			nextY--;
 			break;
-		case 'w':
-			m.matriz[hero.x-1][hero.y] = '@';
+		case UP:
+			//m.matriz[hero.x-1][hero.y] = HERO;
 			nextX--;
 			break;
-		case 's':
-			m.matriz[hero.x+1][hero.y] = '@';
+		case DOWN:
+			//m.matriz[hero.x+1][hero.y] = HERO;
 			nextX++;
 			break;
-		case 'd':
-			m.matriz[hero.x][hero.y+1] = '@';
+		case RIGHT:
+			//m.matriz[hero.x][hero.y+1] = HERO;
 			nextY++;
 			break;
 	}
@@ -107,13 +107,13 @@ void move(char direction){
 	if(!isEmpty(&m, nextX, nextY)){
 		return;
 	}
-	if(m.matriz[nextX][nextY] != '.'){
+	/*if(m.matriz[nextX][nextY] != EMPTY){
 		return;
-	}
+	}*/
 
 	walkingInMap(&m, hero.x, hero.y, nextX, nextY);
-	m.matriz[nextX][nextY] = '@';
-	m.matriz[hero.x][hero.y] = '.';
+	/*m.matriz[nextX][nextY] = HERO;
+	m.matriz[hero.x][hero.y] = EMPTY;*/
 	hero.x = nextX;
 	hero.y = nextY;
 }
@@ -121,7 +121,7 @@ void move(char direction){
 int main() {
 
 	readMap(&m);
-	findHero(&m, &hero, '@');
+	findHero(&m, &hero, HERO);
 
 	do {
 		printMap(&m);

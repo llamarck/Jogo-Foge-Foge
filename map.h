@@ -11,6 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define HERO '@'
+#define EMPTY '.'
+#define VERTICAL_WALL '|'
+#define HORIZONTAL_WALL '-'
+
 struct map{
 	char** matriz;
 	int lines;
