@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define GHOST 'G'
 #define HERO '@'
 #define EMPTY '.'
 #define VERTICAL_WALL '|'
@@ -35,5 +36,6 @@ void allocMap(MAP * m);
 void readMap(MAP * m);
 void freeMap(MAP * m);
 void printMap(MAP * m);
+void ghost();
 
 #endif /* MAP_H_ */

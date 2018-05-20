@@ -17,6 +17,19 @@ int columns;*/
 MAP m;
 POSITION hero;
 
+void ghosts(){
+	int i, j;
+	for(i = 0; i < m.lines; i++){
+		for(j = 0; j < m.columns; j++){
+			if(m.matriz[i][j] == GHOST){
+				if(validDirection(&m, i, j+1)){
+					walkingInMap(&m, i, j, i, j+1);
+				}
+			}
+		}
+	}
+}
+
 void findHero(MAP * m, POSITION * p, char c){
 	int i, j;
 	for(i = 0; i < m->lines; i++){
@@ -54,7 +67,7 @@ int realDirection(char direction){
 void walkingInMap(MAP * m, int xOrigin, int yOrigin, int xDestiny, int yDestiny){
 	char character = m->matriz[xOrigin][yOrigin];
 	m->matriz[xDestiny][yDestiny] = character;
-	m->matriz[xOrigin][yOrigin] = '.';
+	m->matriz[xOrigin][yOrigin] = EMPTY;
 }
 
 void move(char direction){
