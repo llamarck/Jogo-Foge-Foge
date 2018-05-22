@@ -17,7 +17,21 @@ int columns;*/
 MAP m;
 POSITION hero;
 
+void cloneMap(MAP * destiny, MAP * origin){
+	destiny->lines = origin->lines;
+	destiny->columns = origin->columns;
+	allocMap(destiny);
+	int i;
+	for(i = 0; i < origin->lines; i++){
+		strcpy(destiny->matriz[i], origin->matriz[i]);
+	}
+}
+
 void ghosts(){
+	MAP clone;
+
+	cloneMap(&clone, &m);
+
 	int i, j;
 	for(i = 0; i < m.lines; i++){
 		for(j = 0; j < m.columns; j++){
@@ -28,6 +42,7 @@ void ghosts(){
 			}
 		}
 	}
+	freeMap(&clone);
 }
 
 void findHero(MAP * m, POSITION * p, char c){
@@ -142,6 +157,7 @@ int main() {
 		scanf(" %c", &command);
 		fflush(stdout);
 		move(command);
+		ghosts();
 
 	}while(!end());
 

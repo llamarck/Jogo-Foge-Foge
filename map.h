@@ -37,5 +37,6 @@ void readMap(MAP * m);
 void freeMap(MAP * m);
 void printMap(MAP * m);
 void ghost();
+void cloneMap();
 
 #endif /* MAP_H_ */
