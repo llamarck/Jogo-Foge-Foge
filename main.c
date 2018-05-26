@@ -17,6 +17,10 @@ int columns;*/
 MAP m;
 POSITION hero;
 
+int canWalk(MAP * m, int x, int y){
+	return validPosition(m, x, y) && isEmpty(m, x, y);
+}
+
 void cloneMap(MAP * destiny, MAP * origin){
 	destiny->lines = origin->lines;
 	destiny->columns = origin->columns;

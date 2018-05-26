@@ -38,5 +38,6 @@ void freeMap(MAP * m);
 void printMap(MAP * m);
 void ghost();
 void cloneMap();
+int canWalk();
 
 #endif /* MAP_H_ */
